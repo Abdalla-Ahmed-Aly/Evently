@@ -17,71 +17,70 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/Logo.png',
-                    height: MediaQuery.sizeOf(context).height * 0.2,
-                    fit: BoxFit.fill,
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  DefaultTextFormFiled(
-                    controller: emailController,
-                    hintText: 'Email',
-                    prefixIcons: 'email',
-                    validator: (value) {
-                      if (value == null || value.length < 5) {
-                        return 'Invalid Email';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  DefaultTextFormFiled(
-                    controller: passwordController,
-                    hintText: 'password',
-                    prefixIcons: 'password',
-                    isPassword: true,
-                    validator: (value) {
-                      if (value == null || value.length < 8) {
-                        return 'Password can not be Less than 8 characters ';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  DefaultElevatedButton(Lable: 'Login', onPressed: Login),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don’`t Have Account ?",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('Create Account'),
-                      )
-                    ],
-                  )
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/Logo.png',
+                  height: MediaQuery.sizeOf(context).height * 0.2,
+                  fit: BoxFit.fill,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                DefaultTextFormFiled(
+                  controller: emailController,
+                  hintText: 'Email',
+                  prefixIcons: 'email',
+                  validator: (value) {
+                    if (value == null || value.length < 5) {
+                      return 'Invalid Email';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                DefaultTextFormFiled(
+                  controller: passwordController,
+                  hintText: 'password',
+                  prefixIcons: 'password',
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.length < 8) {
+                      return 'Password can not be Less than 8 characters ';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                DefaultElevatedButton(Lable: 'Login', onPressed: Login),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don’`t Have Account ?",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('Create Account'),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ),
