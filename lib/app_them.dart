@@ -19,6 +19,15 @@ class AppThem {
       titleTextStyle:
           TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: primary,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: white,
+        unselectedItemColor: white),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primary,
+        foregroundColor: white,
+        shape: CircleBorder(side: BorderSide(width: 5, color: white))),
     scaffoldBackgroundColor: backgroundLight,
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: TextStyle(
@@ -62,14 +71,12 @@ class AppThem {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: primary,
-        textStyle: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
-          decoration: TextDecoration.underline
-        )
-      ),
+          foregroundColor: primary,
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              decoration: TextDecoration.underline)),
     ),
     textTheme: TextTheme(
       labelSmall: TextStyle(
@@ -94,5 +101,6 @@ class AppThem {
       ),
     ),
   );
+
   static ThemeData darkThem = ThemeData();
 }

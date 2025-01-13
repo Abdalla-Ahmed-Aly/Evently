@@ -1,4 +1,5 @@
 import 'package:evently/auth/login_screen.dart';
+import 'package:evently/home_screen.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<RegisterScreen> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -36,7 +38,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                   height: 24,
                 ),
                 DefaultTextFormFiled(
-                  controller: emailController,
+                  controller: nameController,
                   hintText: 'Name',
                   prefixIcons: 'name',
                   validator: (value) {
@@ -105,6 +107,8 @@ class _LoginScreenState extends State<RegisterScreen> {
   }
 
   void Login() {
-    if (formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate()) {
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+    }
   }
 }
