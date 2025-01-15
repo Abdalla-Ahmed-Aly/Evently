@@ -1,18 +1,21 @@
+import 'package:evently/app_them.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DefaultTextFormFiled extends StatefulWidget {
-  DefaultTextFormFiled({
-    required this.controller,
-    required this.hintText,
-    this.prefixIcons,
-    this.validator,
-    this.isPassword = false,
-  });
-  TextEditingController controller;
+  DefaultTextFormFiled(
+      {this.controller,
+      required this.hintText,
+      this.prefixIcons,
+      this.validator,
+      this.isPassword = false,
+      this.onChanged});
+  TextEditingController? controller;
   String hintText;
   String? prefixIcons;
   String? Function(String?)? validator;
+  void Function(String)? onChanged;
+
   bool isPassword;
 
   @override
@@ -27,6 +30,7 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
     return TextFormField(
       validator: widget.validator,
       controller: widget.controller,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
           hintText: widget.hintText,
           prefixIcon: SvgPicture.asset(
@@ -34,6 +38,7 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
             height: 24,
             width: 24,
             fit: BoxFit.scaleDown,
+            colorFilter: ColorFilter.mode(AppThem.grey, BlendMode.srcIn),
           ),
           suffixIcon: widget.isPassword
               ? IconButton(
@@ -48,8 +53,6 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
               : null),
       obscureText: isObscure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-
-
     );
   }
 }
