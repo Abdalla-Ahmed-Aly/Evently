@@ -4,8 +4,6 @@ import 'package:evently/tabs/home/tab_item.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatefulWidget {
-  const HomeHeader({super.key});
-
   @override
   State<HomeHeader> createState() => _HomeHeaderState();
 }
@@ -48,11 +46,10 @@ class _HomeHeaderState extends State<HomeHeader> {
                 indicatorColor: Colors.transparent,
                 dividerColor: Colors.transparent,
                 tabAlignment: TabAlignment.start,
+                labelPadding: EdgeInsets.symmetric(horizontal: 10),
                 onTap: (index) {
                   currentIndex = index;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 },
                 tabs: Category.categories
                     .map(
