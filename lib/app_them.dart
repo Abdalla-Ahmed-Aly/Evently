@@ -17,7 +17,7 @@ class AppThem {
       foregroundColor: primary,
       centerTitle: true,
       titleTextStyle:
-          TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black),
+          TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: primary),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: primary,

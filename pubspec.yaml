@@ -39,6 +39,7 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   shared_preferences: ^2.3.4
   carousel_slider: ^5.0.0 
+  intl: '^0.20.1'
 
 
 

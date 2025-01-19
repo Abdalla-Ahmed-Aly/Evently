@@ -57,6 +57,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                         category: category,
                         isSelected: currentIndex ==
                             Category.categories.indexOf(category),
+                        selectBackgroundColor: AppThem.white,
+                        selectForegroundColor: AppThem.primary,
+                        UnselectForegroundColor: AppThem.white,
                       ),
                     )
                     .toList(),

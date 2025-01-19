@@ -9,7 +9,8 @@ class DefaultTextFormFiled extends StatefulWidget {
       this.prefixIcons,
       this.validator,
       this.isPassword = false,
-      this.onChanged});
+      this.onChanged,
+      this.maxLines});
   TextEditingController? controller;
   String hintText;
   String? prefixIcons;
@@ -17,7 +18,7 @@ class DefaultTextFormFiled extends StatefulWidget {
   void Function(String)? onChanged;
 
   bool isPassword;
-
+  int? maxLines;
   @override
   State<DefaultTextFormFiled> createState() => _DefaultTextFormFiledState();
 }
@@ -33,13 +34,15 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
       onChanged: widget.onChanged,
       decoration: InputDecoration(
           hintText: widget.hintText,
-          prefixIcon: SvgPicture.asset(
-            'assets/icons/${widget.prefixIcons}.svg',
-            height: 24,
-            width: 24,
-            fit: BoxFit.scaleDown,
-            colorFilter: ColorFilter.mode(AppThem.grey, BlendMode.srcIn),
-          ),
+          prefixIcon: widget.prefixIcons == null
+              ? null
+              : SvgPicture.asset(
+                  'assets/icons/${widget.prefixIcons}.svg',
+                  height: 24,
+                  width: 24,
+                  fit: BoxFit.scaleDown,
+                  colorFilter: ColorFilter.mode(AppThem.grey, BlendMode.srcIn),
+                ),
           suffixIcon: widget.isPassword
               ? IconButton(
                   onPressed: () {
@@ -53,6 +56,7 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
               : null),
       obscureText: isObscure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      maxLines: widget.maxLines,
     );
   }
 }
