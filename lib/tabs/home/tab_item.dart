@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 
 class TabItem extends StatelessWidget {
   TabItem({
-    required this.category,
+    required this.lable,
+    required this.icon,
     required this.isSelected,
     required this.selectBackgroundColor,
     required this.selectForegroundColor,
     required this.UnselectForegroundColor,
   });
-  Category category;
+  String lable;
+  IconData icon;
   bool isSelected;
   Color selectBackgroundColor;
   Color selectForegroundColor;
@@ -31,14 +33,14 @@ class TabItem extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            category.icon,
+            icon,
             color: isSelected ? selectForegroundColor : UnselectForegroundColor,
           ),
           SizedBox(
             width: 8,
           ),
           Text(
-            category.name,
+            lable,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: isSelected
                       ? selectForegroundColor

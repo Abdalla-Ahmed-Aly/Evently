@@ -40,30 +40,38 @@ class _HomeHeaderState extends State<HomeHeader> {
               height: 16,
             ),
             DefaultTabController(
-              length: Category.categories.length,
+              length: Category.categories.length + 1,
               child: TabBar(
-                isScrollable: true,
-                indicatorColor: Colors.transparent,
-                dividerColor: Colors.transparent,
-                tabAlignment: TabAlignment.start,
-                labelPadding: EdgeInsets.symmetric(horizontal: 10),
-                onTap: (index) {
-                  currentIndex = index;
-                  setState(() {});
-                },
-                tabs: Category.categories
-                    .map(
+                  isScrollable: true,
+                  indicatorColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
+                  tabAlignment: TabAlignment.start,
+                  labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                  onTap: (index) {
+                    currentIndex = index;
+                    setState(() {});
+                  },
+                  tabs: [
+                    TabItem(
+                      lable: 'All',
+                      icon: Icons.all_inclusive,
+                      isSelected: currentIndex == 0,
+                      selectBackgroundColor: AppThem.white,
+                      selectForegroundColor: AppThem.primary,
+                      UnselectForegroundColor: AppThem.white,
+                    ),
+                    ...Category.categories.map(
                       (category) => TabItem(
-                        category: category,
+                        lable: category.name,
+                        icon: category.icon,
                         isSelected: currentIndex ==
-                            Category.categories.indexOf(category),
+                            Category.categories.indexOf(category) + 1,
                         selectBackgroundColor: AppThem.white,
                         selectForegroundColor: AppThem.primary,
                         UnselectForegroundColor: AppThem.white,
                       ),
                     )
-                    .toList(),
-              ),
+                  ]),
             )
           ],
         ),

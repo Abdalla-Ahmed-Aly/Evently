@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/category.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 
 class Event {
   String id;

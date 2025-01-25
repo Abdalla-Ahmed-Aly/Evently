@@ -1,4 +1,3 @@
-import 'package:evently/tabs/home/event_item.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class LoveTab extends StatelessWidget {
             SizedBox(height: 16),
             Expanded(
                 child: ListView.separated(
-              itemBuilder: (_, index) => EventItem(),
+              itemBuilder: (_, index) => Container(),
               itemCount: 10,
               separatorBuilder: (_, __) => SizedBox(
                 height: 16,
