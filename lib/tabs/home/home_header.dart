@@ -1,7 +1,9 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/models/category.dart';
+import 'package:evently/provider/events_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeHeader extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _HomeHeaderState extends State<HomeHeader> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     TextTheme textTheme = TextTheme.of(context);
     return Container(
       width: double.infinity,
@@ -49,7 +52,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                   labelPadding: EdgeInsets.symmetric(horizontal: 10),
                   onTap: (index) {
                     currentIndex = index;
-                    setState(() {});
+                    eventsProvider.getEventsByCategory(
+                      index == 0 ? null : Category.categories[index - 1],
+                    );
                   },
                   tabs: [
                     TabItem(

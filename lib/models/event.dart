@@ -19,7 +19,7 @@ class Event {
       : this(
           id: json['id'],
           category: Category.categories
-              .firstWhere((category) => category.id == json['category']),
+              .firstWhere((category) => category.id == json['categoryId']),
           titel: json['titel'],
           description: json['description'],
           datetime: (json['datetime'] as Timestamp).toDate(),
@@ -27,7 +27,7 @@ class Event {
 
   Map<String, dynamic> tojson() => {
         'id': id,
-        'category': category.id,
+        'categoryId': category.id,
         'titel': titel,
         'description': description,
         'datetime': Timestamp.fromDate(datetime)

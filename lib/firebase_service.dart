@@ -14,9 +14,17 @@ class FirebaseService {
             fromFirestore: (snapshot, _) => Event.fromjson(snapshot.data()!),
             toFirestore: (event, _) => event.tojson(),
           );
-  static Future<List<Event>> getEventFireStore() async {
+  static Future<List<Event>> getEventFireStore(String? categoryId) async {
     CollectionReference<Event> eventCollection = EventsCollection();
-    QuerySnapshot<Event> querySnapshot = await eventCollection.orderBy('datetime').get();
+    late QuerySnapshot<Event> querySnapshot;
+    if (categoryId == null) {
+      querySnapshot = await eventCollection.orderBy('datetime').get();
+    } else {
+      querySnapshot = await eventCollection
+          .where('categoryId', isEqualTo: categoryId)
+          .orderBy('datetime')
+          .get();
+    }
 
     return querySnapshot.docs.map((querySnap) => querySnap.data()).toList();
   }
