@@ -51,8 +51,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                   tabAlignment: TabAlignment.start,
                   labelPadding: EdgeInsets.symmetric(horizontal: 10),
                   onTap: (index) {
+                    if (currentIndex == index) return;
                     currentIndex = index;
-                    eventsProvider.getEventsByCategory(
+                    eventsProvider.filterEventsByCategory(
                       index == 0 ? null : Category.categories[index - 1],
                     );
                   },

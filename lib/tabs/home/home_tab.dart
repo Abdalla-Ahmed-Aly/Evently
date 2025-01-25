@@ -8,7 +8,7 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventsProvider events_provider = Provider.of(context);
-    if (events_provider.events.isEmpty) {
+    if (events_provider.filterevent.isEmpty) {
       events_provider.getEvents();
     }
     return Column(
@@ -19,9 +19,9 @@ class HomeTab extends StatelessWidget {
           child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 16),
             itemBuilder: (_, index) => EventItem(
-              event: events_provider.events[index],
+              event: events_provider.filterevent[index],
             ),
-            itemCount: events_provider.events.length,
+            itemCount: events_provider.filterevent.length,
             separatorBuilder: (_, __) => SizedBox(
               height: 16,
             ),

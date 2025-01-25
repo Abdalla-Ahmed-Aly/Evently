@@ -1,20 +1,28 @@
-
 import 'package:evently/firebase_service.dart';
 import 'package:evently/models/category.dart';
 import 'package:evently/models/event.dart';
 import 'package:flutter/material.dart';
 
 class EventsProvider with ChangeNotifier {
-  List<Event> events = [];
+  List<Event> allevent = [];
+  List<Event> filterevent = [];
+
   Category? selectedCategory;
 
   Future<void> getEvents() async {
-    events = await FirebaseService.getEventFireStore(selectedCategory?.id);
+    allevent = await FirebaseService.getEventFireStore();
+filterEventsByCategory(selectedCategory);
     notifyListeners();
   }
 
-  getEventsByCategory(Category? category) {
+ void filterEventsByCategory(Category? category) {
     selectedCategory = category;
-    getEvents();
+    if (category == null) {
+      filterevent = allevent;
+    } else{
+    filterevent =
+        allevent.where((event) => event.category == category).toList();
+  }
+  notifyListeners();
   }
 }

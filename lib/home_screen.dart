@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           currentIndex: currentIndex,
           onTap: (index) {
+            if (currentIndex == index) return;
+
             currentIndex = index;
             setState(() {});
           },
@@ -59,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed(CreateEventScreen.routeName),
+        onPressed: () =>
+            Navigator.of(context).pushNamed(CreateEventScreen.routeName),
         child: Icon(
           Icons.add,
           size: 36,
