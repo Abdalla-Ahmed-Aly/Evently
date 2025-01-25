@@ -1,5 +1,7 @@
 import 'package:evently/app_them.dart';
+import 'package:evently/firebase_service.dart';
 import 'package:evently/models/category.dart';
+import 'package:evently/models/event.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
@@ -207,6 +209,21 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   void createEvent() {
     if (formKey.currentState!.validate() &&
         selectedDate != null &&
-        selectedTime != null) {}
+        selectedTime != null) {
+      DateTime date = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedTime.hour,
+        selectedTime.minute,
+      );
+      Event event = Event(
+        category: selectedCategory,
+        titel: titelController.text,
+        description: descrplController.text,
+        datetime: date,
+      );
+      FirebaseService.addEventToFireStore(event);
+    }
   }
 }
