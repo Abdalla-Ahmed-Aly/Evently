@@ -21,4 +21,26 @@ class FirebaseService {
 
     return querySnapshot.docs.map((querySnap) => querySnap.data()).toList();
   }
+
+  static Future<List<Event>> getEventById(String id) async {
+    CollectionReference<Event> eventCollection = EventsCollection();
+    QuerySnapshot<Event> querySnapshot =
+        await eventCollection.where('id', isEqualTo: id).get();
+
+    return querySnapshot.docs.map((querySnap) => querySnap.data()).toList();
+  }
+
+  static Future<void> deleteEventById(String id) async {
+    CollectionReference<Event> eventCollection = EventsCollection();
+    await eventCollection.doc(id).delete();
+  }
+
+  static Future<void> updateEventsById(Event event) async {
+    CollectionReference<Event> eventCollection = EventsCollection();
+    if (event.id.isNotEmpty) {
+      await eventCollection.doc(event.id).update(event.tojson());
+    } else {
+      print("Event ID is empty. Cannot update event.");
+    }
+  }
 }

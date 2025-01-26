@@ -11,18 +11,23 @@ class EventsProvider with ChangeNotifier {
 
   Future<void> getEvents() async {
     allevent = await FirebaseService.getEventFireStore();
-filterEventsByCategory(selectedCategory);
+    filterEventsByCategory(selectedCategory);
     notifyListeners();
   }
+  // Future<void> getEventsByID(String id) async {
+  //   allevent = await FirebaseService.getEventById(id);
+  //   filterEventsByCategory(selectedCategory);
+  //   notifyListeners();
+  // }
 
- void filterEventsByCategory(Category? category) {
+  void filterEventsByCategory(Category? category) {
     selectedCategory = category;
     if (category == null) {
       filterevent = allevent;
-    } else{
-    filterevent =
-        allevent.where((event) => event.category == category).toList();
-  }
-  notifyListeners();
+    } else {
+      filterevent =
+          allevent.where((event) => event.category == category).toList();
+    }
+    notifyListeners();
   }
 }
