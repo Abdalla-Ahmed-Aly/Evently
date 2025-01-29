@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/event.dart';
 import 'package:evently/models/user_model.dart';
@@ -86,4 +84,20 @@ class FirebaseService {
   }
 
   static Future<void> Logout() => FirebaseAuth.instance.signOut();
+
+  static Future<void> addEventTofavorite(String eventId) async {
+    CollectionReference<UserModel> UserCollection = UsersCollection();
+    return UserCollection.doc(FirebaseAuth.instance.currentUser!.uid).update({
+      'eventFavoriteIds': FieldValue.arrayUnion([eventId])
+    });
+  }
+
+  static Future<void> removwEventTofavorite(String eventId) async {
+    CollectionReference<UserModel> UserCollection = UsersCollection();
+    return UserCollection.doc(FirebaseAuth.instance.currentUser!.uid).update({
+      'eventFavoriteIds': FieldValue.arrayRemove(
+        [eventId],
+      )
+    });
+  }
 }

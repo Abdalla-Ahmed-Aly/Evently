@@ -57,6 +57,7 @@ class _DefaultTextFormFiledState extends State<DefaultTextFormFiled> {
       obscureText: isObscure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       maxLines: widget.maxLines,
+      onTapOutside: (_)=>FocusManager.instance.primaryFocus?.unfocus(),
     );
   }
 }

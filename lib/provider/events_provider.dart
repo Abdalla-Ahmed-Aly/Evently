@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class EventsProvider with ChangeNotifier {
   List<Event> allevent = [];
   List<Event> filterevent = [];
+  List<Event> favoriteevents = [];
 
   Category? selectedCategory;
 
@@ -28,6 +29,11 @@ class EventsProvider with ChangeNotifier {
       filterevent =
           allevent.where((event) => event.category == category).toList();
     }
+    notifyListeners();
+  }
+
+  void filtereventsByFavorite(List<String> favoriteeventsIDS) {
+   favoriteevents= allevent.where((event) => favoriteeventsIDS.contains(event.id)).toList();
     notifyListeners();
   }
 }

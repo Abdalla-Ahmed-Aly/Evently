@@ -1,8 +1,10 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/profile/profile_header.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
   @override
@@ -20,6 +22,7 @@ class ProfileTab extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     FirebaseService.Logout().then((_) {
+                      Provider.of<UserProvider>(context,listen: false).updateuser(null);
                       Navigator.of(context)
                           .pushReplacementNamed(LoginScreen.routeName);
                     }).catchError((error){

@@ -1,14 +1,12 @@
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
-import 'package:evently/models/event.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/events_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';

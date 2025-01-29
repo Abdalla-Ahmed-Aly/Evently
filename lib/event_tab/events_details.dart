@@ -1,7 +1,9 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/models/event.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/user_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,35 +18,45 @@ class EventsTab extends StatelessWidget {
     Size screenSize = MediaQuery.sizeOf(context);
     TextTheme textTheme = Theme.of(context).textTheme;
     Event event = ModalRoute.of(context)!.settings.arguments as Event;
-
+    UserProvider user= Provider.of<UserProvider>(context, listen: false);
+    EventsProvider eventsProvider= Provider.of<EventsProvider>(context, listen: false);
+    Event? eventByID = eventsProvider.allevent.firstWhere((element) => element.id==event.id);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Event Details',
         ),
-        actions: [
-          IconButton(
+        actions:  [
+          Visibility(
+            visible: eventByID.UserId==user.currenUser!.id,
+            child: IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
               Navigator.pushNamed(context, '/editEvent', arguments: event);
             },
           ),
-          IconButton(
-            icon: Icon(
-              Icons.delete_rounded,
-              color: AppThem.red,
-            ),
-            onPressed: () {
-              FirebaseService.deleteEventById(event.id).then((_) async {
-                await Provider.of<EventsProvider>(context, listen: false)
-                    .getEvents();
-                Navigator.pop(context);
-                print('deleted');
-              }).catchError((_) {
-                print('error');
-              });
-            },
           ),
+
+          Visibility(
+            visible: eventByID.UserId==user.currenUser!.id,
+            child: IconButton(
+              icon: Icon(
+                Icons.delete_rounded,
+                color: AppThem.red,
+              ),
+              onPressed: () {
+                FirebaseService.deleteEventById(event.id).then((_) async {
+                  await Provider.of<EventsProvider>(context, listen: false)
+                      .getEvents();
+                  Navigator.pop(context);
+                  print('deleted');
+                }).catchError((_) {
+                  print('error');
+                });
+              },
+            ),
+          )
+          
         ],
       ),
       body: Padding(

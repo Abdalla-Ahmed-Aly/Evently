@@ -1,14 +1,22 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/models/event.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventItem extends StatelessWidget {
-EventItem({required this.event});
+  EventItem({required this.event});
   Event event;
+
+  @override
+
+
   @override
   Widget build(BuildContext context) {
-    Size screenSize=MediaQuery.sizeOf(context);
+    UserProvider user = Provider.of<UserProvider>(context);
+    bool isFavorite = user.checkWithFavorite(event.id);
+    Size screenSize = MediaQuery.sizeOf(context);
     TextTheme textTheme = Theme.of(context).textTheme;
     return Stack(
       children: [
@@ -17,7 +25,7 @@ EventItem({required this.event});
           child: Image.asset(
             'assets/images/${event.category.imageName}.png',
             width: double.infinity,
-            height: screenSize.height*0.24,
+            height: screenSize.height * 0.24,
             fit: BoxFit.fill,
           ),
         ),
@@ -43,7 +51,7 @@ EventItem({required this.event});
           ),
         ),
         Positioned(
-          width: screenSize.width-32,
+          width: screenSize.width - 32,
           bottom: 0,
           child: Container(
             padding: EdgeInsets.all(8),
@@ -61,9 +69,18 @@ EventItem({required this.event});
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (isFavorite) {
+                      user.removeEventTofavorite(event.id);
+                    } else {
+                      user.addEventTofavorite(event.id);
+                    }
+                  },
                   icon: Icon(
-                    Icons.favorite_outline_rounded,
+                    isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+                    color: AppThem.primary,
                   ),
                 )
               ],
