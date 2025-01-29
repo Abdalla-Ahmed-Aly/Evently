@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:evently/app_them.dart';
+import 'package:evently/auth/login_screen.dart';
 import 'package:evently/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +63,7 @@ class PageIndicator extends StatelessWidget {
   padding: EdgeInsets.zero,
   onPressed: () async {
     if (currentPageIndex == 2) {
-      Navigator.popAndPushNamed(context, HomeScreen.routeName);
+      Navigator.popAndPushNamed(context, LoginScreen.routeName);
       await navigateAndSave(); 
     
     } else {
