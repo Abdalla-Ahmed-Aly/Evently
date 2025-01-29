@@ -1,3 +1,4 @@
+import 'package:evently/event_tab/events_details.dart';
 import 'package:evently/provider/events_provider.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/event_item.dart';
@@ -29,8 +30,13 @@ class LoveTab extends StatelessWidget {
             SizedBox(height: 16),
             Expanded(
                 child: ListView.separated(
-              itemBuilder: (_, index) =>
-                  EventItem(event: eventsProvider.favoriteevents[index]),
+              itemBuilder: (_, index) => InkWell(
+                onTap: () => Navigator.of(context).pushNamed(
+                  EventsTab.routeName,
+                  arguments: eventsProvider.favoriteevents[index],
+                ),
+                child: EventItem(event: eventsProvider.favoriteevents[index]),
+              ),
               itemCount: eventsProvider.favoriteevents.length,
               separatorBuilder: (_, __) => SizedBox(
                 height: 16,
