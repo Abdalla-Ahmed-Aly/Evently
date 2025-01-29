@@ -102,7 +102,7 @@ class EventsTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        DateFormat('DD MMMM yyyy').format(event.datetime),
+                        DateFormat('d MMMM yyyy').format(event.datetime),
                         style: textTheme.bodyLarge!.copyWith(
                           color: AppThem.primary,
                         ),

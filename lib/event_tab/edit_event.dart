@@ -32,6 +32,7 @@ class _EditEventState extends State<EditEvent> {
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       event1 = ModalRoute.of(context)!.settings.arguments as Event;
       setState(() {
