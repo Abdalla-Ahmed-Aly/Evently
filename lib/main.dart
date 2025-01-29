@@ -7,6 +7,7 @@ import 'package:evently/event_tab/events_details.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/page_view/page_view.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,19 @@ Future<void> main() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   bool introscreen = sharedPref.getBool('introscreen') ?? false;
   await Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(
-  create: (context) => EventsProvider(),
-    child: EventlyApp(introscreen: introscreen),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EventsProvider(),
+        ),
+      ],
+      child: EventlyApp(introscreen: introscreen),
+    ),
+  );
 }
 
 class EventlyApp extends StatelessWidget {
@@ -39,7 +49,7 @@ class EventlyApp extends StatelessWidget {
         EventsTab.routeName: (_) => EventsTab(),
         EditEvent.routeName: (_) => EditEvent(),
       },
-      initialRoute: introscreen ? HomeScreen.routeName : MyPageView.routeName,
+      initialRoute: introscreen ? LoginScreen.routeName : MyPageView.routeName,
       theme: AppThem.LightThem,
       darkTheme: AppThem.darkThem,
       themeMode: ThemeMode.light,

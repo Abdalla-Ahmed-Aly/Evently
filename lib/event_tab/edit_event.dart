@@ -4,6 +4,7 @@ import 'package:evently/home_screen.dart';
 import 'package:evently/models/category.dart';
 import 'package:evently/models/event.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
@@ -243,6 +244,8 @@ class _EditEventState extends State<EditEvent> {
       );
       Event event = Event(
         id: event1.id,
+        UserId:
+            Provider.of<UserProvider>(context, listen: false).currenUser!.id,
         category: selectedCategory,
         titel: titelController.text,
         description: descrplController.text,

@@ -1,4 +1,6 @@
 import 'package:evently/app_them.dart';
+import 'package:evently/auth/login_screen.dart';
+import 'package:evently/firebase_service.dart';
 import 'package:evently/tabs/profile/profile_header.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +17,15 @@ class ProfileTab extends StatelessWidget {
             child: Column(
               children: [
                 Spacer(),
-                InkWell(
-                  onTap: () {},
+                GestureDetector(
+                  onTap: () {
+                    FirebaseService.Logout().then((_) {
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginScreen.routeName);
+                    }).catchError((error){
+                      print(error);
+                    });
+                  },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 28),
                     padding: EdgeInsets.all(16),

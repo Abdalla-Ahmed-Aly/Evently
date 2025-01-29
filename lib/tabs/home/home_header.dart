@@ -1,6 +1,8 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/models/category.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,7 @@ class _HomeHeaderState extends State<HomeHeader> {
   Widget build(BuildContext context) {
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     TextTheme textTheme = TextTheme.of(context);
+   UserModel  user= Provider.of<UserProvider>(context,).currenUser!;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -36,7 +39,7 @@ class _HomeHeaderState extends State<HomeHeader> {
               style: textTheme.bodyMedium?.copyWith(color: AppThem.white),
             ),
             Text(
-              'Abdullah Ahmed',
+              user.name,
               style: textTheme.displayMedium,
             ),
             SizedBox(

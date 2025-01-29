@@ -1,8 +1,14 @@
 import 'package:evently/auth/login_screen.dart';
+import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
+import 'package:evently/models/event.dart';
+import 'package:evently/provider/user_provider.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/events_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';
@@ -108,7 +114,16 @@ class _LoginScreenState extends State<RegisterScreen> {
 
   void Login() {
     if (formKey.currentState!.validate()) {
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      FirebaseService.Registe(
+              name: nameController.text,
+              email: emailController.text,
+              password: passwordController.text)
+          .then((user) {
+        Provider.of<UserProvider>(context, listen: false).updateuser(user);
+        Navigator.of(context).pushNamed(HomeScreen.routeName);
+      }).catchError((_) {
+        print(_);
+      });
     }
   }
 }
