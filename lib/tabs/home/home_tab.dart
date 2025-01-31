@@ -9,11 +9,6 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
-
-    if (eventsProvider.filterevent.isEmpty) {
-      eventsProvider.getEvents();
-    }
-
     return Column(
       children: [
         HomeHeader(),

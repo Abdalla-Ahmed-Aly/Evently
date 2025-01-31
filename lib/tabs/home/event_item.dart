@@ -1,5 +1,6 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/models/event.dart';
+import 'package:evently/provider/events_provider.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -72,6 +73,8 @@ class EventItem extends StatelessWidget {
                   onPressed: () {
                     if (isFavorite) {
                       user.removeEventTofavorite(event.id);
+                      Provider.of<EventsProvider>(context,listen: false).filtereventsByFavorite(
+                          user.currenUser!.eventFavoriteIds);
                     } else {
                       user.addEventTofavorite(event.id);
                     }

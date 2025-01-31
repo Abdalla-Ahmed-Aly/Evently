@@ -22,6 +22,6 @@ class UserProvider with ChangeNotifier {
   void removeEventTofavorite(String eventId) {
     FirebaseService.removwEventTofavorite(eventId);
     currenUser!.eventFavoriteIds.remove(eventId);
-    notifyListeners();
+    // notifyListeners();
   }
 }

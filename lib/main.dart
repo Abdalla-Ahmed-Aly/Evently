@@ -25,7 +25,7 @@ Future<void> main() async {
           create: (_) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => EventsProvider(),
+          create: (_) => EventsProvider()..getEvents(),
         ),
       ],
       child: EventlyApp(introscreen: introscreen),

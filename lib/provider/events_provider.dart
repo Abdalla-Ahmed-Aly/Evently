@@ -33,7 +33,23 @@ class EventsProvider with ChangeNotifier {
   }
 
   void filtereventsByFavorite(List<String> favoriteeventsIDS) {
-   favoriteevents= allevent.where((event) => favoriteeventsIDS.contains(event.id)).toList();
+    favoriteevents = allevent
+        .where((event) => favoriteeventsIDS.contains(event.id))
+        .toList();
     notifyListeners();
+  }
+
+  void searchEventTitle(String query) {
+    if (query.isEmpty) {
+      filterevent = allevent;
+    } else {
+      filterevent = allevent
+          .where((event) =>
+              event.titel.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+
+    notifyListeners();
+
   }
 }
