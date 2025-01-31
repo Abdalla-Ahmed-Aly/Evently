@@ -4,6 +4,7 @@ import 'package:evently/home_screen.dart';
 import 'package:evently/models/category.dart';
 import 'package:evently/models/event.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/setting_provider_them.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
@@ -29,6 +30,7 @@ class _EditEventState extends State<EditEvent> {
   DateFormat dateFormat = DateFormat('dd/M/yyyy');
   TimeOfDay selectedTime = TimeOfDay.now();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   late Event event1;
   @override
   void initState() {
@@ -49,6 +51,7 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   Widget build(BuildContext context) {
+    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -93,9 +96,12 @@ class _EditEventState extends State<EditEvent> {
                       icon: category.icon,
                       isSelected:
                           currentIndex == Category.categories.indexOf(category),
-                      selectBackgroundColor: AppThem.primary,
-                      selectForegroundColor: AppThem.white,
-                      UnselectForegroundColor: AppThem.primary,
+                      selectBackgroundColor:
+                          isdark ? AppThem.primary : AppThem.white,
+                      selectForegroundColor:
+                          isdark ? AppThem.backgroundDark : AppThem.primary,
+                      UnselectForegroundColor:
+                          isdark ? AppThem.primary : AppThem.white,
                     ),
                   )
                   .toList(),

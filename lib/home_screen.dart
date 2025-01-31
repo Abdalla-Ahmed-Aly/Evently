@@ -20,9 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       body: tabs[currentIndex],
       bottomNavigationBar: BottomAppBar(
-        color: AppThem.primary,
+        color: AppThem.backgroundDark,
         padding: EdgeInsets.zero,
         notchMargin: 5,
         shape: CircularNotchedRectangle(),

@@ -1,5 +1,6 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/models/user_model.dart';
+import 'package:evently/provider/setting_provider_them.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,9 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = TextTheme.of(context);
-   UserModel user=   Provider.of<UserProvider>(context,listen: false).currenUser!;
+    UserModel user =
+        Provider.of<UserProvider>(context, listen: false).currenUser!;
+
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(

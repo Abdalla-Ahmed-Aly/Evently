@@ -3,6 +3,7 @@ import 'package:evently/firebase_service.dart';
 import 'package:evently/models/event.dart';
 import 'package:evently/models/user_model.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/setting_provider_them.dart';
 import 'package:evently/provider/user_provider.dart';
 
 import 'package:flutter/material.dart';
@@ -15,30 +16,36 @@ class EventsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
+
     Size screenSize = MediaQuery.sizeOf(context);
     TextTheme textTheme = Theme.of(context).textTheme;
     Event event = ModalRoute.of(context)!.settings.arguments as Event;
-    UserProvider user= Provider.of<UserProvider>(context, listen: false);
-    EventsProvider eventsProvider= Provider.of<EventsProvider>(context, listen: false);
-    Event? eventByID = eventsProvider.allevent.firstWhere((element) => element.id==event.id);
+    UserProvider user = Provider.of<UserProvider>(context, listen: false);
+    EventsProvider eventsProvider =
+        Provider.of<EventsProvider>(context, listen: false);
+    Event? eventByID =
+        eventsProvider.allevent.firstWhere((element) => element.id == event.id);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Event Details',
         ),
-        actions:  [
+        actions: [
           Visibility(
-            visible: eventByID.UserId==user.currenUser!.id,
+            visible: eventByID.UserId == user.currenUser!.id,
             child: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              Navigator.pushNamed(context, '/editEvent', arguments: event);
-            },
+              icon: Icon(
+                Icons.edit,
+                color: isdark ? AppThem.primary : null,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/editEvent', arguments: event);
+              },
+            ),
           ),
-          ),
-
           Visibility(
-            visible: eventByID.UserId==user.currenUser!.id,
+            visible: eventByID.UserId == user.currenUser!.id,
             child: IconButton(
               icon: Icon(
                 Icons.delete_rounded,
@@ -56,7 +63,6 @@ class EventsTab extends StatelessWidget {
               },
             ),
           )
-          
         ],
       ),
       body: Padding(
@@ -79,7 +85,6 @@ class EventsTab extends StatelessWidget {
                 event.titel,
                 style: textTheme.titleLarge!
                     .copyWith(color: AppThem.primary, fontSize: 24),
-                    
               ),
             ),
             SizedBox(height: 16),
@@ -87,7 +92,7 @@ class EventsTab extends StatelessWidget {
               padding: EdgeInsets.all(8),
               height: screenSize.height * 0.09,
               decoration: BoxDecoration(
-                color: AppThem.white,
+                color: isdark ? AppThem.backgroundDark : AppThem.white,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: AppThem.primary,

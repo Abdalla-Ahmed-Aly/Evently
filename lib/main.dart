@@ -7,6 +7,7 @@ import 'package:evently/event_tab/events_details.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/page_view/page_view.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/setting_provider_them.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   bool introscreen = sharedPref.getBool('introscreen') ?? false;
+  final settingProvider = SettingProviderThem();
+  await settingProvider.loadTheme(); 
+
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
@@ -27,6 +31,9 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (_) => EventsProvider()..getEvents(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => settingProvider,
+        ),
       ],
       child: EventlyApp(introscreen: introscreen),
     ),
@@ -35,9 +42,13 @@ Future<void> main() async {
 
 class EventlyApp extends StatelessWidget {
   final bool introscreen;
+
   EventlyApp({required this.introscreen});
+
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
+    bool isdark = Provider.of<SettingProviderThem>(context, listen: true).dark;
+    print(isdark);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
@@ -52,7 +63,7 @@ class EventlyApp extends StatelessWidget {
       initialRoute: introscreen ? LoginScreen.routeName : MyPageView.routeName,
       theme: AppThem.LightThem,
       darkTheme: AppThem.darkThem,
-      themeMode: ThemeMode.light,
+      themeMode: isdark ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
