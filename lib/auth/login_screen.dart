@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context)
-                          .pushNamed(RegisterScreen.routeName),
+                          .pushReplacementNamed(RegisterScreen.routeName),
                       child: Text('Create Account'),
                     )
                   ],
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               email: emailController.text, password: passwordController.text)
           .then((user) {
         Provider.of<UserProvider>(context, listen: false).updateuser(user);
-        Navigator.of(context).pushNamed(HomeScreen.routeName);
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       }).catchError((_) {
         print(_);
       });
