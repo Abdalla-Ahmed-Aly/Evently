@@ -6,6 +6,7 @@ import 'package:evently/tabs/home/event_item.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoveTab extends StatefulWidget {
   @override
@@ -29,6 +30,8 @@ class _LoveTabState extends State<LoveTab> {
 
   @override
   Widget build(BuildContext context) {
+        AppLocalizations app_localizations = AppLocalizations.of(context)!;
+
     eventsProvider = Provider.of<EventsProvider>(context);
     return SafeArea(
       child: Padding(
@@ -36,7 +39,7 @@ class _LoveTabState extends State<LoveTab> {
         child: Column(
           children: [
             DefaultTextFormFiled(
-              hintText: 'Search for event',
+              hintText: app_localizations.search,
               onChanged: (query) {
                 eventsProvider.searchEventTitle(query);
                 setState(() {});

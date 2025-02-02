@@ -1,0 +1,34 @@
+{
+    "login": "login",
+    "register": "register",
+    "email": "email",
+    "password": "password",
+    "haveaccountnot": "don’t have account ?",
+    "createaccount": "create account",
+    "name": "name",
+    "haveaccount": "already have account ?",
+    "welcome": "welcome back ✨",
+    "home":"Home",
+    "map":"Map",
+    "love":"Love",
+    "user":"User",
+    "event_details":"Event Details",
+    "description":"Description",
+    "edit_event":"Edit Event",
+    "title":"Title",
+    "event_title":"Event Title",
+    "event_date":"Event Date",
+    "event_time":"Event Time",
+    "update_event":"Update Event",
+    "create_event":"Create Event",
+    "add_event":"Add Event",
+    "search":"Search for event",
+    "dark":"Dark Mode",
+    "language":"language",
+    "logout":"Logout"
+
+
+
+    
+  }
+  

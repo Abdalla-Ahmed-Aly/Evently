@@ -14,7 +14,7 @@ class EventItem extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
+    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).isDark;
     UserProvider user = Provider.of<UserProvider>(context);
     bool isFavorite = user.checkWithFavorite(event.id);
     Size screenSize = MediaQuery.sizeOf(context);

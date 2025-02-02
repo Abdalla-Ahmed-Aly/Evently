@@ -9,6 +9,7 @@ class AppThem {
   static const Color white = Color(0xffFFFFFF);
   static const Color grey = Color(0xff7B7B7B);
   static const Color red = Color(0xffff5659);
+  static const Color green = Colors.green;
 
   static ThemeData LightThem = ThemeData(
     primaryColor: primary,
@@ -204,5 +205,7 @@ class AppThem {
         color: white,
       ),
     ),
+  
   );
+  
 }

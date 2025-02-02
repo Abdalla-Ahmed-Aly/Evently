@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditEvent extends StatefulWidget {
   static const String routeName = '/editEvent';
@@ -51,13 +52,16 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   Widget build(BuildContext context) {
-    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
+       AppLocalizations app_localizations= AppLocalizations.of(context)!;
+
+    bool isdark =
+        Provider.of<SettingProviderThem>(context, listen: false).isDark;
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Edit Event',
+          app_localizations.edit_event,
         ),
       ),
       body: Column(
@@ -96,12 +100,9 @@ class _EditEventState extends State<EditEvent> {
                       icon: category.icon,
                       isSelected:
                           currentIndex == Category.categories.indexOf(category),
-                      selectBackgroundColor:
-                          isdark ? AppThem.primary : AppThem.white,
-                      selectForegroundColor:
-                          isdark ? AppThem.backgroundDark : AppThem.primary,
-                      UnselectForegroundColor:
-                          isdark ? AppThem.primary : AppThem.white,
+                    selectBackgroundColor: AppThem.primary,
+                      selectForegroundColor: AppThem.white,
+                      UnselectForegroundColor: AppThem.primary,
                     ),
                   )
                   .toList(),
@@ -117,7 +118,7 @@ class _EditEventState extends State<EditEvent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Title',
+                        app_localizations.title,
                         style: textTheme.bodyLarge,
                       ),
                       SizedBox(height: 8),
@@ -133,7 +134,7 @@ class _EditEventState extends State<EditEvent> {
                         },
                       ),
                       Text(
-                        'Description',
+                        app_localizations.description,
                         style: textTheme.bodyLarge,
                       ),
                       DefaultTextFormFiled(
@@ -155,10 +156,11 @@ class _EditEventState extends State<EditEvent> {
                             height: 24,
                             width: 24,
                             fit: BoxFit.scaleDown,
+                            color: isdark ? AppThem.white : AppThem.black,
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Event Date',
+                            app_localizations.event_date,
                             style: textTheme.bodyLarge,
                           ),
                           Spacer(),
@@ -196,10 +198,11 @@ class _EditEventState extends State<EditEvent> {
                             height: 24,
                             width: 24,
                             fit: BoxFit.scaleDown,
+                            color: isdark ? AppThem.white : AppThem.black,
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Event Time',
+                            app_localizations.event_time,
                             style: textTheme.bodyLarge,
                           ),
                           Spacer(),
@@ -225,7 +228,7 @@ class _EditEventState extends State<EditEvent> {
                       ),
                       SizedBox(height: 16),
                       DefaultElevatedButton(
-                          Lable: 'Update Event', onPressed: createEvent)
+                          Lable: app_localizations.update_event, onPressed: createEvent)
                     ],
                   ),
                 ),

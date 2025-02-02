@@ -1,11 +1,15 @@
+import 'package:evently/app_them.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -21,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+   AppLocalizations app_localizations= AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -41,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 DefaultTextFormFiled(
                   controller: emailController,
-                  hintText: 'Email',
+                  hintText: app_localizations.email,
                   prefixIcons: 'email',
                   validator: (value) {
                     if (value == null || value.length < 5) {
@@ -55,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 DefaultTextFormFiled(
                   controller: passwordController,
-                  hintText: 'password',
+                  hintText: app_localizations.password,
                   prefixIcons: 'password',
                   isPassword: true,
                   validator: (value) {
@@ -68,7 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 24,
                 ),
-                DefaultElevatedButton(Lable: 'Login', onPressed: Login),
+                DefaultElevatedButton(
+                    Lable: app_localizations.login,
+                    onPressed: Login),
                 SizedBox(
                   height: 20,
                 ),
@@ -76,13 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don’`t Have Account ?",
+                      app_localizations.haveaccountnot,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context)
                           .pushReplacementNamed(RegisterScreen.routeName),
-                      child: Text('Create Account'),
+                      child: Text(app_localizations.createaccount),
                     )
                   ],
                 )
@@ -101,8 +109,19 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((user) {
         Provider.of<UserProvider>(context, listen: false).updateuser(user);
         Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-      }).catchError((_) {
-        print(_);
+      }).catchError((error) {
+        String? errorMessage;
+        if (error is FirebaseAuthException) {
+         errorMessage= error.message;
+        }
+        Fluttertoast.showToast(
+            msg: errorMessage??'Eroor to Login',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppThem.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       });
     }
   }

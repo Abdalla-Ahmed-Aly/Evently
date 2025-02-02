@@ -1,7 +1,6 @@
 import 'package:evently/app_them.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/models/event.dart';
-import 'package:evently/models/user_model.dart';
 import 'package:evently/provider/events_provider.dart';
 import 'package:evently/provider/setting_provider_them.dart';
 import 'package:evently/provider/user_provider.dart';
@@ -10,13 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventsTab extends StatelessWidget {
   static const String routeName = '/events';
 
   @override
   Widget build(BuildContext context) {
-    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
+    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).isDark;
+   AppLocalizations app_localizations= AppLocalizations.of(context)!;
 
     Size screenSize = MediaQuery.sizeOf(context);
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -29,7 +30,7 @@ class EventsTab extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Event Details',
+          app_localizations.event_details,
         ),
         actions: [
           Visibility(
@@ -118,15 +119,24 @@ class EventsTab extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        DateFormat('d MMMM yyyy').format(event.datetime),
-                        style: textTheme.bodyLarge!.copyWith(
-                          color: AppThem.primary,
+                      Localizations.override(
+                        locale: Locale('en'),
+                        context: context,
+                        child: Text(
+                          DateFormat('d MMMM yyyy').format(event.datetime),
+                          
+                          style: textTheme.bodyLarge!.copyWith(
+                            color: AppThem.primary,
+                          ),
                         ),
                       ),
-                      Text(
-                        DateFormat('hh:mma').format(event.datetime),
-                        style: textTheme.bodyLarge,
+                      Localizations.override(
+                        context: context,
+                        locale: Locale('en'),
+                        child: Text(
+                          DateFormat('hh:mma').format(event.datetime),
+                          style: textTheme.bodyLarge,
+                        ),
                       ),
                     ],
                   ),
@@ -138,7 +148,7 @@ class EventsTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Description',
+                  app_localizations.description,
                   style: textTheme.bodyLarge,
                 ),
                 Text(event.description, style: textTheme.bodyLarge),

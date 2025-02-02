@@ -3,14 +3,17 @@ import 'package:evently/firebase_service.dart';
 import 'package:evently/models/category.dart';
 import 'package:evently/models/event.dart';
 import 'package:evently/provider/events_provider.dart';
+import 'package:evently/provider/setting_provider_them.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateEventScreen extends StatefulWidget {
   static const String routeName = '/create-event';
@@ -30,11 +33,15 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    AppLocalizations app_localizations = AppLocalizations.of(context)!;
+
     TextTheme textTheme = Theme.of(context).textTheme;
+    bool isdark =
+        Provider.of<SettingProviderThem>(context, listen: false).isDark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Create Event',
+          app_localizations.create_event,
         ),
       ),
       body: Column(
@@ -90,12 +97,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Title',
+                        app_localizations.title,
                         style: textTheme.bodyLarge,
                       ),
                       SizedBox(height: 8),
                       DefaultTextFormFiled(
-                        hintText: 'Event Title',
+                        hintText: app_localizations.event_title,
                         prefixIcons: 'titel',
                         controller: titelController,
                         validator: (value) {
@@ -106,11 +113,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         },
                       ),
                       Text(
-                        'Description',
+                        app_localizations.description,
                         style: textTheme.bodyLarge,
                       ),
                       DefaultTextFormFiled(
-                        hintText: 'Event Description',
+                        hintText: app_localizations.description,
                         controller: descrplController,
                         maxLines: 4,
                         validator: (value) {
@@ -128,10 +135,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             height: 24,
                             width: 24,
                             fit: BoxFit.scaleDown,
+                            color: isdark ? AppThem.white : AppThem.black,
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Event Date',
+                            app_localizations.event_date,
                             style: textTheme.bodyLarge,
                           ),
                           Spacer(),
@@ -169,10 +177,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             height: 24,
                             width: 24,
                             fit: BoxFit.scaleDown,
+                            color: isdark ? AppThem.white : AppThem.black,
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Event Time',
+                            app_localizations.event_time,
                             style: textTheme.bodyLarge,
                           ),
                           Spacer(),
@@ -198,7 +207,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                       SizedBox(height: 16),
                       DefaultElevatedButton(
-                          Lable: 'Add Event', onPressed: createEvent)
+                          Lable: app_localizations.add_event,
+                          onPressed: createEvent)
                     ],
                   ),
                 ),
@@ -231,9 +241,26 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       );
       FirebaseService.addEventToFireStore(event).then((_) {
         Provider.of<EventsProvider>(context, listen: false).getEvents();
-        Navigator.pop(context);
+        Navigator.of(context).pop();
+        Fluttertoast.showToast(
+          msg: "Event Created",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: AppThem.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
       }).catchError((_) {
-        print('Eroor in adding event');
+        Fluttertoast.showToast(
+          msg: "Failed to create event",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: AppThem.red,
+          textColor: Colors.black,
+          fontSize: 16.0,
+        );
       });
     }
   }

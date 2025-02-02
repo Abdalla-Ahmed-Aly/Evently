@@ -6,6 +6,7 @@ import 'package:evently/tabs/love/love_tab.dart';
 import 'package:evently/tabs/map/map_tab.dart';
 import 'package:evently/tabs/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -19,8 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [HomeTab(), MapTab(), LoveTab(), ProfileTab()];
   @override
   Widget build(BuildContext context) {
+    AppLocalizations app_localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
-    
       body: tabs[currentIndex],
       bottomNavigationBar: BottomAppBar(
         color: AppThem.backgroundDark,
@@ -40,22 +42,22 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(
               icon: NavBarIcon(imageName: 'home_select'),
-              label: 'Home',
+              label: app_localizations.home,
               activeIcon: NavBarIcon(imageName: 'home_un_select'),
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(imageName: 'map_select'),
-              label: 'Map',
+              label: app_localizations.map,
               activeIcon: NavBarIcon(imageName: 'Map_un_select'),
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(imageName: 'love_select'),
-              label: 'Love',
+              label: app_localizations.love,
               activeIcon: NavBarIcon(imageName: 'love_un_select'),
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(imageName: 'user_select'),
-              label: 'User',
+              label: app_localizations.user,
               activeIcon: NavBarIcon(imageName: 'user_un_select'),
             ),
           ],

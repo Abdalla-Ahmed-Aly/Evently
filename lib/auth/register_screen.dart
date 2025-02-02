@@ -1,12 +1,15 @@
+import 'package:evently/app_them.dart';
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/provider/user_provider.dart';
 import 'package:evently/widgets/default_elevated_button.dart';
 import 'package:evently/widgets/default_text_form_filed.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';
@@ -23,6 +26,8 @@ class _LoginScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+AppLocalizations appLocalizations=    AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -43,7 +48,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                 ),
                 DefaultTextFormFiled(
                   controller: nameController,
-                  hintText: 'Name',
+                  hintText: appLocalizations.name,
                   prefixIcons: 'name',
                   validator: (value) {
                     if (value == null || value.length < 3) {
@@ -57,7 +62,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                 ),
                 DefaultTextFormFiled(
                   controller: emailController,
-                  hintText: 'Email',
+                  hintText: appLocalizations.email,
                   prefixIcons: 'email',
                   validator: (value) {
                     if (value == null || value.length < 5) {
@@ -71,7 +76,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                 ),
                 DefaultTextFormFiled(
                   controller: passwordController,
-                  hintText: 'password',
+                  hintText: appLocalizations.password,
                   prefixIcons: 'password',
                   isPassword: true,
                   validator: (value) {
@@ -84,7 +89,9 @@ class _LoginScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 24,
                 ),
-                DefaultElevatedButton(Lable: 'Register', onPressed: Login),
+                DefaultElevatedButton(
+                    Lable: appLocalizations.register,
+                    onPressed: Login),
                 SizedBox(
                   height: 20,
                 ),
@@ -92,13 +99,13 @@ class _LoginScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Alredy Have Account ?",
+                      appLocalizations.haveaccount,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context)
                           .pushReplacementNamed(LoginScreen.routeName),
-                      child: Text('Login'),
+                      child: Text(appLocalizations.login),
                     )
                   ],
                 )
@@ -119,8 +126,19 @@ class _LoginScreenState extends State<RegisterScreen> {
           .then((user) {
         Provider.of<UserProvider>(context, listen: false).updateuser(user);
         Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-      }).catchError((_) {
-        print(_);
+      }).catchError((error) {
+        String? errorMessage;
+        if (error is FirebaseAuthException) {
+         errorMessage= error.message;
+        }
+        Fluttertoast.showToast(
+            msg: errorMessage??'Eroor to Login',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppThem.red,
+            textColor: Colors.black,
+            fontSize: 16.0);
       });
     }
   }

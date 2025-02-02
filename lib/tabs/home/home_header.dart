@@ -7,6 +7,8 @@ import 'package:evently/provider/user_provider.dart';
 import 'package:evently/tabs/home/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomeHeader extends StatefulWidget {
   @override
@@ -17,7 +19,9 @@ class _HomeHeaderState extends State<HomeHeader> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    bool isdark = Provider.of<SettingProviderThem>(context, listen: false).dark;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+    bool isdark =
+        Provider.of<SettingProviderThem>(context, listen: false).isDark;
 
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     TextTheme textTheme = TextTheme.of(context);
@@ -40,7 +44,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Welcome Back ✨',
+              appLocalizations.welcome,
               style: textTheme.bodyMedium?.copyWith(color: AppThem.white),
             ),
             Text(
